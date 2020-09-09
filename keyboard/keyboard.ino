@@ -19,7 +19,7 @@ byte rowPins[n_cols] = {16, 17, 5, 18, 19, 21};
 
 Keypad myKeypad = Keypad( makeKeymap(keys), rowPins, colPins, n_rows, n_cols);
 
-WiFiServer wifiServer(80);
+WiFiServer wifiServer(8000);
 
 void setup() {
   Serial.begin(115200);
@@ -42,16 +42,23 @@ void loop() {
 
   WiFiClient client = wifiServer.available();
 
-  char myKey = myKeypad.getKey();
-
-  //if (client) {
-    //Serial.println(client.remoteIP());
-    //client.print(String("connected to esp"));
-  //}
-
-  if (myKey != NULL) {
+  //Serial.println(client.remoteIP());
+  
+  while (client.connected()) {
+    char myKey = myKeypad.getKey();
+    //reading data from client
+    char c = client.read();
+    //Serial.println(c);
+    Serial.println(myKey);
+    //sending data to client
+    if (myKey != NULL) {
       Serial.println(myKey);
-      client.print(String("myKey"));
+      client.print(myKey);
   }
   
+  }
+  //disconnected
+  client.stop();
+  
+ 
 }

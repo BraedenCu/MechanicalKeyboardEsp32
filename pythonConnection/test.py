@@ -13,9 +13,10 @@ if __name__ == '__main__':
         #keep running while connected to a client
         data = s.recv(1024)
         print(repr(data))
-        print("receiving")
+        message='t'
         time.sleep(1)
-    
+        s.sendto(message.encode(),(ip, port))
+
     s.close()
 
     
