@@ -43,22 +43,19 @@ void loop() {
   WiFiClient client = wifiServer.available();
 
   //Serial.println(client.remoteIP());
-  
-  while (client.connected()) {
+  while(client) {
     char myKey = myKeypad.getKey();
+  
     //reading data from client
     char c = client.read();
-    //Serial.println(c);
-    Serial.println(myKey);
+    
     //sending data to client
     if (myKey != NULL) {
       Serial.println(myKey);
       client.print(myKey);
-  }
-  
+    }
   }
   //disconnected
-  client.stop();
+  //client.stop();
   
- 
 }
