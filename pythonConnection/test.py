@@ -34,14 +34,14 @@ if __name__ == '__main__':
     s.connect((ip, port))
 
     #send quote to esp32
-    q = getQuote()
-    s.sendto(q.encode(),(ip, port))
+    #q = getQuote()
+    #s.sendto(q.encode(),(ip, port))
 
     while(receivingData==True):
         #keep running while connected to a host
         data = s.recv(1024)
         print(repr(data))
-        pressKey(data)
+        #pressKey(data)
 
     #close connection if no longer receivign data from host
     s.close()

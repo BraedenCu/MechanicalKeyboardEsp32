@@ -1,12 +1,12 @@
 #include <Keypad.h>
 #include <WiFi.h>
 #include <LiquidCrystal.h>
+//"" makes it search in current dir.
+#include "networkInfo.h"
 
 const byte n_rows = 5;
 const byte n_cols = 6;
 
-const char* ssid = "lake-cullie";
-const char* password = "cullen1201";
 
 char keys[n_rows][n_cols] = {
   {'~', '1', '2', '3', '4', '5'},
@@ -16,8 +16,9 @@ char keys[n_rows][n_cols] = {
   {'#', '$', '%'}
 };
 
-byte colPins[n_rows] = {7, 8, 15, 2, 0};
-byte rowPins[n_cols] = {4, 16, 17, 5, 18, 19};
+//start at escape and go down for rows, left for collumns 
+byte colPins[n_rows] = {15,2,0,4,16};
+byte rowPins[n_cols] = {5,18,19,21,22,23};
 
 Keypad myKeypad = Keypad( makeKeymap(keys), rowPins, colPins, n_rows, n_cols);
 
@@ -59,7 +60,7 @@ void loop() {
     //reading data from client
     char c = client.read();
     //UPDATE LCD
-    lcd.print(c);
+    //lcd.print(c);
     
     
     if (myKey != NULL) {
