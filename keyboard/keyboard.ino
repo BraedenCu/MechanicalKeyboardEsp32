@@ -7,17 +7,19 @@ const byte n_rows = 5;
 const byte n_cols = 6;
 
 //using hexidecimal because chars are for noobs
+//0x07 = nothing
 char keys[n_rows][n_cols] = {
   {0x1B, 0x31, 0x32, 0x33, 0x34, 0x35},
   {0x9, 0x51, 0x58, 0x45, 0x52, 0x54},
-  {0x14, 0x41, 0x53, 0x44, 0x46},
-  {0x10, 0x5A, 0x43, 0x56, 0x42},
-  {0x11, 0x5B, 0x12, 0x20}
+  {0x14, 0x41, 0x53, 0x44, 0x46, 0x47},
+  {0x10, 0x5A, 0x58, 0x43, 0x56, 0x42},
+  {0x11, 0x5B, 0x12, 0x07, 0x07, 0x20}
 };
 
 //start at escape and go down for rows, left for collumns 
-byte colPins[n_rows] = {15,2,0,4,16};
-byte rowPins[n_cols] = {5,18,19,21,22,23};
+byte rowPins[n_rows] = {15,2,0,4,16};
+byte colPins[n_cols] = {5,18,19,21,22,23};
+
 Keypad myKeypad = Keypad( makeKeymap(keys), rowPins, colPins, n_rows, n_cols);
 
 WiFiServer wifiServer(8000);
@@ -60,9 +62,11 @@ void loop() {
   WiFiClient client = wifiServer.available();
 
   //Serial.println(client.remoteIP());
-  while(client) {
-    char myKey = myKeypad.getKey();
   
+  while(client) {
+    Serial.write(myKeypad.getKey());
+    char myKey = myKeypad.getKey();
+    
     //reading data from client
     char c = client.read();
     
