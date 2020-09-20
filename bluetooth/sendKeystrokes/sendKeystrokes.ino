@@ -6,7 +6,7 @@ int numRows = 6;
 int numCols = 5;
 
 //row pins
-int r1=15, r2=2, r3=0, r4=4, r5=16, r6=17;
+int r1=15,r2=2,r3=0,r4=4,r5=16,r6=17;
 //collumn pins
 int c1=34,c2=35,c3=32,c4=33,c5=25;
 
@@ -16,36 +16,27 @@ void setup() {
   pinMode(0, OUTPUT);
   pinMode(4, INPUT);
   
+  digitalWrite(0, HIGH);
+  
   bleKeyboard.begin();
 }
 
 void loop() {
-  int test = digitalRead(4);
-  
-  Serial.println(test);
-
-  digitalWrite(0, HIGH);
+  Serial.println(".");
   
   if(bleKeyboard.isConnected()) {
-    bleKeyboard.print("Hello world");
-
-    delay(1000);
-
-    bleKeyboard.write(KEY_RETURN);
-
-    delay(1000);
-
-    bleKeyboard.write(KEY_MEDIA_PLAY_PAUSE);
-
-    delay(1000);
-
-    bleKeyboard.press(KEY_LEFT_CTRL);
-    bleKeyboard.press(KEY_LEFT_ALT);
-    bleKeyboard.press(KEY_DELETE);
-    delay(100);
-  
+    int test = digitalRead(4);
+    if (test == 0) {
+      Serial.println("yeah");
+      bleKeyboard.print("t");
+    }
 
   }
-  bleKeyboard.releaseAll();
+  
+  //bleKeyboard.releaseAll();
   delay(5000);
+}
+
+char getPressedKey(int coll) {
+  
 }
