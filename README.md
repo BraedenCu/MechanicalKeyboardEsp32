@@ -1,9 +1,3 @@
 # MechanicalKeyboardEsp32
 
-
-
-
-
-
-man
-lets get some ml going
+Just in case anyone is interested
